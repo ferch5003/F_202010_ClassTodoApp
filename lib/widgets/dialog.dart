@@ -1,4 +1,5 @@
 import 'package:f_202010_todo_class/model/todo.dart';
+import 'package:f_202010_todo_class/widgets/dropdown.dart';
 import 'package:flutter/material.dart';
 
 class NewTodoDialog extends StatefulWidget {
@@ -9,6 +10,7 @@ class NewTodoDialog extends StatefulWidget {
 class _NewTodoDialogState extends State<NewTodoDialog> {
   final controllerTitle = new TextEditingController();
   final controllerBody = new TextEditingController();
+  String _dropSelected = "DEFAULT";
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +33,13 @@ class _NewTodoDialogState extends State<NewTodoDialog> {
               TextField(
                   decoration: InputDecoration(labelText: "Body"),
                   controller: controllerBody),
+              Center(
+                  child: TodoTypeDropdown(
+                selected: _dropSelected,
+                onChangedValue: (value) => setState(() {
+                  _dropSelected = value;
+                }),
+              ))
             ],
           ),
         ),
@@ -52,7 +61,8 @@ class _NewTodoDialogState extends State<NewTodoDialog> {
               final todo = Todo(
                   title: controllerTitle.value.text,
                   body: controllerBody.value.text,
-                  completed: 0);
+                  completed: 0,
+                  icon: getIcon(_dropSelected));
               controllerTitle.clear();
               controllerBody.clear();
 
@@ -60,5 +70,18 @@ class _NewTodoDialogState extends State<NewTodoDialog> {
             }),
       ],
     );
+  }
+
+  Icon getIcon(String selected) {
+    switch (selected) {
+      case 'DEFAULT':
+        return Icon(Icons.check, size: 72.0);
+      case 'CALL':
+        return Icon(Icons.call, size: 72.0);
+      case 'HOME_WORK':
+        return Icon(Icons.contacts, size: 72.0);
+      default:
+        return Icon(Icons.dialpad, size: 72.0);
+    }
   }
 }

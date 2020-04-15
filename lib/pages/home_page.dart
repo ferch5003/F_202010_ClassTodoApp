@@ -19,7 +19,7 @@ class _HomePageTodoState extends State<HomePageTodo> {
       ),
       body: _list(),
       floatingActionButton: new FloatingActionButton(
-          onPressed: () => {_addTodo()},
+          onPressed: () => _addTodo(),
           tooltip: 'Add task',
           child: new Icon(Icons.add)),
     );
@@ -59,6 +59,7 @@ class _HomePageTodoState extends State<HomePageTodo> {
         title: element.title,
         body: element.body,
         completed: element.completed,
+        icon: element.icon,
         onTap: () => onTap(context, element, posicion),
       ),
     );

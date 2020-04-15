@@ -4,9 +4,12 @@ class CardTodo extends StatelessWidget {
   final String title;
   final String body;
   final int completed;
+  final Icon icon;
   final VoidCallback onTap;
 
-  CardTodo({this.title, this.body, this.completed, this.onTap});
+  CardTodo(
+      {Key key, this.title, this.body, this.completed, this.icon, this.onTap})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +20,9 @@ class CardTodo extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Container(
-            height: 150,
+            height: 140,
             child: ListTile(
+              leading: icon,
               contentPadding: const EdgeInsets.only(top: 20.0, left: 10.0),
               title: Text(
                 "$title",
